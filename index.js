@@ -11,22 +11,14 @@ function printWelcomeMessage() {
     console.log('==========================')
 }
 
-function requestNumber(index = 0) {
+function requestNumberWithPrompt(prompt) {
     var number;
-    if (index>0) {
-    console.log("Please enter number " + index + ":");
+    console.log(prompt);
     number = readline.prompt()
-    }
-    else {
-    console.log("Please enter number:");
-    number = readline.prompt()
-    }
-
     if (isNaN(number)) {
         console.log("Not a valid number, please try again.");
-        return requestNumber(index);
+        return requestNumberWithPrompt(prompt);
     }
-
     return number;
 }
 
@@ -42,24 +34,21 @@ function requestOperator(){
 }
 
 function requestQuantity(operator) {
-    console.log('How many numbers do you want to ' + symbolToWordDict[operator] + "?");
-    return requestNumber();
-    
+    return requestNumberWithPrompt('How many numbers do you want to ' + symbolToWordDict[operator] + "?:");
 }
 
-function formArray(quantity) {
+function formArray(operator) {
+    const quantity = requestQuantity(operator);
     var numbers = [];
-
     for (let step = 0; step < quantity; step++) {
-        numbers.push(requestNumber(step+1));
+        numbers.push(requestNumberWithPrompt("Please enter number " + (step+1) + ":"));
     }
-
     return numbers;
 }
 
-function calculateAnswer(operator, numbers, quantity) {
-var answer = numbers[0]
-
+function calculateAnswer(operator, numbers) {
+    const quantity = numbers.length;
+    var answer = numbers[0];
     switch (operator) {
         case '+':
         for (let step = 1; step < quantity; step++) {
@@ -82,31 +71,23 @@ var answer = numbers[0]
         case '/':
         for (let step = 1; step < quantity; step++) {
             answer /= +numbers[step];
-            console.log(answer);
         }
         break;
     }
-    
     return answer;
 }
 
 function performOneOperation() {
     
-    let operator = requestOperator();
-
-    let quantity = requestQuantity(operator);
-
-    let numbers = formArray(quantity);
-
-    let answer = calculateAnswer(operator, numbers, quantity);    
-
+    const operator = requestOperator();
+    const numbers = formArray(operator);
+    const answer = calculateAnswer(operator, numbers);    
     console.log('The answer is ' + answer);
 }
 
 function runCalculator() {
     var continueCalculator = true;
-
-    while (continueCalculator === true) {
+    while (continueCalculator) {
         performOneOperation();
         console.log("Do you want to perform another calculation? (y/n)");
         let response = readline.prompt();
