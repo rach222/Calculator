@@ -1,7 +1,15 @@
 const readline = require('readline-sync');
 
 console.log('Welcome to the calculator!');
-console.log('===========================')
+console.log('==========================')
+
+console.log('Please enter an operator:');
+const operator = readline.prompt();
+
+if (!(operator == '+' || operator == '-' || operator == '*' || operator == '/')) {
+    console.log('Operator not accepted');
+    return 1;
+}
 
 console.log('Please enter your first number:');
 const argument1 = readline.prompt();
@@ -11,6 +19,24 @@ console.log('Please enter your second number:');
 const argument2 = readline.prompt();
 const number2 = +argument2;
 
-const answer = number1 * number2
+var answer
 
-console.log('The product of ' + number1 +' and ' + number2 + ' is ' + answer);
+switch (operator) {
+    case '+':
+    answer = number1 + number2;
+    break;
+
+    case '*':
+    answer = number1 * number2;
+    break;
+
+    case '-':
+    answer = number1 - number2;
+    break;
+
+    case '/':
+    answer = number1 / number2;
+    break;
+}
+
+console.log('The answer is ' + answer);
