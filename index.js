@@ -1,5 +1,12 @@
 const readline = require('readline-sync');
 
+const symbolToWordDict = {
+    "+": "add",
+    "-": "subtract",
+    "*": "multiply",
+    "/": "divide",
+}
+
 console.log('Welcome to the calculator!');
 console.log('==========================')
 
@@ -11,31 +18,42 @@ if (!(operator == '+' || operator == '-' || operator == '*' || operator == '/'))
     return 1;
 }
 
-console.log('Please enter your first number:');
-const argument1 = readline.prompt();
-const number1 = +argument1;
+console.log('How many numbers do you want to ' + symbolToWordDict[operator] + "?");
+const quantity = +readline.prompt();
 
-console.log('Please enter your second number:');
-const argument2 = readline.prompt();
-const number2 = +argument2;
+var numbers = [];
 
-var answer
+for (let step = 0; step < quantity; step++) {
+    console.log("Please enter number " + (step+1) + ":");
+    numbers.push(readline.prompt());
+}
+
+var answer = numbers[0]
 
 switch (operator) {
     case '+':
-    answer = number1 + number2;
+    for (let step = 1; step < quantity; step++) {
+        answer += +numbers[step];
+    }
     break;
 
     case '*':
-    answer = number1 * number2;
+    for (let step = 1; step < quantity; step++) {
+        answer *= +numbers[step];
+    }
     break;
 
     case '-':
-    answer = number1 - number2;
+    for (let step = 1; step < quantity; step++) {
+        answer -= +numbers[step];
+    }
     break;
 
     case '/':
-    answer = number1 / number2;
+    for (let step = 1; step < quantity; step++) {
+        answer /= +numbers[step];
+        console.log(answer);
+    }
     break;
 }
 
