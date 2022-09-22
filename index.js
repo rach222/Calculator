@@ -1,11 +1,16 @@
 const readline = require('readline-sync');
 
 console.log('Welcome to the calculator!');
+console.log('===========================')
 
 console.log('Please enter your first number:');
-const var1 = parseFloat(readline.prompt());
+const argument1 = readline.prompt();
+const number1 = +argument1;
 
 console.log('Please enter your second number:');
-const var2 = parseFloat(readline.prompt());
+const argument2 = readline.prompt();
+const number2 = +argument2;
 
-console.log('The product of ' + var1 +' and ' + var2 + ' is ' + var1*var2);
+const answer = number1 * number2
+
+console.log('The product of ' + number1 +' and ' + number2 + ' is ' + answer);
