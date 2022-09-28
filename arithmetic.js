@@ -10,29 +10,23 @@ function formArray(operator) {
 }
 
 function calculateAnswer(operator, numbers) {
-    var answer = numbers[0];
-    for (let step = 1; step < numbers.length; step++) {
+    var answer;
     switch (operator) {
         case '+':
-            answer += +numbers[step];
-        
+            answer = numbers.reduce((previousValue,currentValue) => previousValue + currentValue);
         break;
 
         case '*':
-            answer *= +numbers[step];
-        
+            answer = numbers.reduce((previousValue,currentValue) => previousValue * currentValue);
         break;
 
         case '-':
-            answer -= +numbers[step];
-        
+            answer = numbers.reduce((previousValue,currentValue) => previousValue - currentValue);
         break;
 
         case '/':
-            answer /= +numbers[step];
-        
+            answer = numbers.filter((number) => number !== 0).reduce((previousValue,currentValue) => previousValue / currentValue);        
         break;
-    }
     }
     return answer;
 }

@@ -15,6 +15,18 @@ function requestStringWithPrompt(prompt) {
 
 exports.requestStringWithPrompt = requestStringWithPrompt;
 
+function requestNumberWithPrompt(prompt) {
+    console.log(prompt);
+    var number = readline.prompt();
+    if (isNaN(+number)) {
+        console.log(`${number} is not a valid number, please try again.`);
+        return requestNumberWithPrompt(prompt);
+    }
+    return +number;
+}
+
+exports.requestNumberWithPrompt = requestNumberWithPrompt;
+
 exports.requestQuantity = function(operator) {
     return requestNumberWithPrompt(`How many numbers do you want to ${symbolToWordDict[operator]}?:`);
 }
@@ -30,18 +42,6 @@ function requestOperator() {
 }
 
 exports.requestOperator = requestOperator;
-
-function requestNumberWithPrompt(prompt) {
-    console.log(prompt);
-    var number = readline.prompt();
-    if (isNaN(+number)) {
-        console.log(`${number} is not a valid number, please try again.`);
-        return requestNumberWithPrompt(prompt);
-    }
-    return +number;
-}
-
-exports.requestNumberWithPrompt = requestNumberWithPrompt;
 
 exports.getCalculationMode = function() {
     const mode = requestNumberWithPrompt("Which mode do you want to use? \n1)Arithmetic\n2)Vowel Counting");
